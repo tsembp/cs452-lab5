@@ -31,10 +31,15 @@ type InvertedIndex struct {
 
 // NewInvertedIndex creates and returns a new empty InvertedIndex.
 func NewInvertedIndex(files []string) (*InvertedIndex, error) {
-	return &InvertedIndex{
+	idx := &InvertedIndex{
 		indexFiles: files,
-		data: nil,
-	}, nil
+	}
+
+	if err := idx.ensureIndexIsLoaded(); err != nil {
+		return nil, err
+	}
+
+	return idx, nil
 }
 
 // SearchScanFiles scans all index files on each search and returns matched keywords per document,

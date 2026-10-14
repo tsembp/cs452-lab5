@@ -10,7 +10,7 @@ import (
 
 // RootHandler serves HTML content loaded from a file
 func (s *WebServer) RootHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, s.htmlPath)
+	w.Write(s.cache)
 }
 
 // SearchHandler handles GET requests to the `/api/search` endpoint.

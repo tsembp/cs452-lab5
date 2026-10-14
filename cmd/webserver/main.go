@@ -1,4 +1,3 @@
-
 package main
 
 import (
@@ -47,7 +46,10 @@ func main() {
 		log.Fatalf("Error starting server: %v", err)
 	}
 
-	s := webserver.NewWebServer(htmlPath, topK, index)
+	s, err := webserver.NewWebServer(htmlPath, topK, index)
+	if err != nil {
+		log.Fatalf("Error starting server: %v", err)
+	}
 
 	http.HandleFunc("/", s.RootHandler)
 	http.HandleFunc("/api/search", s.SearchHandler)
