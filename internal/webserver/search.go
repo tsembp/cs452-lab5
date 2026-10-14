@@ -21,7 +21,7 @@ func (s *WebServer) SearchHandler(w http.ResponseWriter, r *http.Request) {
 		return unicode.IsSpace(r) || unicode.IsPunct(r)
 	})
 
-	results, err := s.index.SearchScanFiles(keywords)
+	results, err := s.index.SearchInMemoryTopK(keywords, s.topK)
 	if err != nil {
 		http.Error(w, "search failed", http.StatusInternalServerError)
 		return
